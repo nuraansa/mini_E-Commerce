@@ -8,7 +8,7 @@ class Users {
     // Fetch All Users
   fetchUsers(req, res) {
     const query = `
-          SELECT userID, firstName, lastName, gender, userDOB, emailAdd, profileUrl
+          SELECT userID, firstName, lastName, gender, userDOB, emailAdd, profileImg
           FROM Users;
           `;
     db.query(query, (err, results) => {
@@ -24,7 +24,7 @@ class Users {
   fetchUser(req, res) {
     const id = req.params.id;
     const query = `
-          SELECT userID, firstName, lastName, gender, userDOB, emailAdd, profileUrl
+          SELECT userID, firstName, lastName, gender, userDOB, emailAdd, profileImg
           FROM Users
           WHERE userID = ?
           `;
@@ -44,7 +44,7 @@ class Users {
     const query = `
       SELECT firstName, lastName,
       gender, userDOB, emailAdd, userPass,
-      profileUrl
+      profileImg
       FROM Users
       WHERE emailAdd = ?;
       `;
@@ -109,12 +109,12 @@ class Users {
 
 //   Update User
   updateUser(req, res) {
-    const data = rew.body;
+    const data = req.body;
     if (data.userPass) {
       data.userPass = hasSync(data.userPass, 15);
     }
     const query = `
-            UPDATE FROM Users
+            UPDATE Users
             SET ?
             WHERE userID = ?;   
             `;
@@ -130,7 +130,6 @@ class Users {
   deleteUser(req, res) {
     const query = `
             DELETE FROM Users
-            SET ?
             WHERE userID = ${req.params.id};   
             `;
     db.query(query, (err) => {
