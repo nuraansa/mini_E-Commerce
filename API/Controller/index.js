@@ -29,3 +29,9 @@ routes.patch('/user/:id', bodyParser.json(), (req, res)=>{
 routes.delete('/user/:id', (req, res)=>{
     users.deleteUser(req, res)
 })
+
+module.exports = {
+    express,
+    routes,
+    verrifyAToken
+}
